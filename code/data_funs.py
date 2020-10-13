@@ -25,11 +25,13 @@ def read_data():
     for i in range(np.shape(survey)[0]):
         letters_in[i] = survey.iloc[i, 3] in upper_letters
     survey = survey.loc[letters_in, :]
+    print("{} ({}%) people picked a letter that isn't in the alphabet".format(sum(~letters_in), np.round(sum(~letters_in)/len(~letters_in), 4)*100 ))
     
     # Remove numbers which are decimals
     decimal_inputs = np.repeat(False, np.shape(survey)[0])
     for i in [1, 2, 4]:
         decimal_inputs = decimal_inputs ^ np.round(survey.iloc[:,i]) - survey.iloc[:,i] > 0
     survey = survey.loc[~decimal_inputs, :]
-    
+    print("{} ({}%) people picked at least one number as a decimal".format(sum(decimal_inputs), np.round(sum(decimal_inputs)/len(decimal_inputs), 4)*100 ))
+
     return survey

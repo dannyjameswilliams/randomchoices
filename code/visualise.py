@@ -13,7 +13,14 @@ print(os.getcwd())
 
 import data_funs as dat
 import visualise_funs as vis
-
+import analysis_funs as an
 
 survey = dat.read_data()
-vis.histograms_1to10(survey)
+# vis.histograms_1to10(survey)
+#vis.barcharts_1to10(survey)
+
+# vis.test_heatmap()
+# vis.keyboard_heatmap(survey)
+
+#an.freq_regression(survey, True)
+an.same_number(survey)
