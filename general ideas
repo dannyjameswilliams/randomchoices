@@ -5,6 +5,8 @@ ref: https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html
 
 - average number of times people picked the same number, should be 1/10
 
-- average difference between the two numbers that people picked, should be 
+- average difference between the two numbers that people picked, should be...?
+
+is there an inverse transformation? neural network?
 
 

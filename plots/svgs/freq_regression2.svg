@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (1.0+r73+1)"
+   sodipodi:docname="freq_regression2.svg"
+   id="svg1973"
+   version="1.1"
+   viewBox="0 0 700 500"
+   style=""
+   height="500"
+   width="700"
+   class="main-svg">
+  <metadata
+     id="metadata1977">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:current-layer="svg1973"
+     inkscape:window-maximized="1"
+     inkscape:window-y="27"
+     inkscape:window-x="1987"
+     inkscape:cy="272.32143"
+     inkscape:cx="350"
+     inkscape:zoom="1.792"
+     showgrid="false"
+     id="namedview1975"
+     inkscape:window-height="1025"
+     inkscape:window-width="1853"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <rect
+     id="rect1627"
+     style="fill:#ffffff;fill-opacity:1;stroke-width:0.703522"
+     height="320.5"
+     width="540.5"
+     y="100"
+     x="79.5" />
+  <defs
+     id="defs-b7d03b">
+    <g
+       id="g1641"
+       class="clips">
+      <clipPath
+         class="plotclip"
+         id="clipb7d03bxyplot">
+        <rect
+           id="rect1629"
+           height="320"
+           width="540" />
+      </clipPath>
+      <clipPath
+         id="clipb7d03bx"
+         class="axesclip">
+        <rect
+           id="rect1632"
+           height="500"
+           width="540"
+           y="0"
+           x="80" />
+      </clipPath>
+      <clipPath
+         id="clipb7d03by"
+         class="axesclip">
+        <rect
+           id="rect1635"
+           height="320"
+           width="700"
+           y="100"
+           x="0" />
+      </clipPath>
+      <clipPath
+         id="clipb7d03bxy"
+         class="axesclip">
+        <rect
+           id="rect1638"
+           height="320"
+           width="540"
+           y="100"
+           x="80" />
+      </clipPath>
+    </g>
+    <g
+       id="g1643"
+       class="gradients" />
+  </defs>
+  <g
+     id="g1646"
+     class="bglayer" />
+  <g
+     id="g1652"
+     class="layer-below">
+    <g
+       id="g1648"
+       class="imagelayer" />
+    <g
+       id="g1650"
+       class="shapelayer" />
+  </g>
+  <g
+     id="g1934"
+     class="cartesianlayer">
+    <g
+       id="g1932"
+       class="subplot xy">
+      <g
+         id="g1658"
+         class="layer-subplot">
+        <g
+           id="g1654"
+           class="shapelayer" />
+        <g
+           id="g1656"
+           class="imagelayer" />
+      </g>
+      <g
+         id="g1664"
+         class="gridlayer">
+        <g
+           id="g1660"
+           class="x" />
+        <g
+           id="g1662"
+           class="y" />
+      </g>
+      <g
+         id="g1666"
+         class="zerolinelayer" />
+      <path
+         id="path1668"
+         class="xlines-below" />
+      <path
+         id="path1670"
+         class="ylines-below" />
+      <g
+         id="g1672"
+         class="overlines-below" />
+      <g
+         id="g1674"
+         class="xaxislayer-below" />
+      <g
+         id="g1676"
+         class="yaxislayer-below" />
+      <g
+         id="g1678"
+         class="overaxes-below" />
+      <g
+         id="g1864"
+         clip-path="url('#clipb7d03bxyplot')"
+         transform="translate(80, 100)"
+         class="plot">
+        <g
+           id="g1862"
+           class="scatterlayer mlayer">
+          <g
+             id="g1846"
+             style="stroke-miterlimit: 2; opacity: 1;"
+             class="trace scatter tracef6bd3c">
+            <g
+               id="g1680"
+               class="fills" />
+            <g
+               id="g1682"
+               class="errorbars" />
+            <g
+               id="g1684"
+               class="lines" />
+            <g
+               id="g1686"
+               class="points" />
+            <g
+               id="g1844"
+               class="text">
+              <g
+                 id="g1692"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1690"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="149.8"
+                   x="394.91"><tspan
+                     id="tspan1688"
+                     style="font-weight:bold">A</tspan></text>
+              </g>
+              <g
+                 id="g1698"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1696"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="127.12"
+                   x="110.14"><tspan
+                     id="tspan1694"
+                     style="font-weight:bold">B</tspan></text>
+              </g>
+              <g
+                 id="g1704"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1702"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="170.2"
+                   x="219.49"><tspan
+                     id="tspan1700"
+                     style="font-weight:bold">C</tspan></text>
+              </g>
+              <g
+                 id="g1710"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1708"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="192.88"
+                   x="168.32"><tspan
+                     id="tspan1706"
+                     style="font-weight:bold">D</tspan></text>
+              </g>
+              <g
+                 id="g1716"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1714"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="263.18"
+                   x="513"><tspan
+                     id="tspan1712"
+                     style="font-weight:bold">E</tspan></text>
+              </g>
+              <g
+                 id="g1722"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1720"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="84.03"
+                   x="98.62"><tspan
+                     id="tspan1718"
+                     style="font-weight:bold">F</tspan></text>
+              </g>
+              <g
+                 id="g1728"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1726"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="25.07"
+                   x="127.81"><tspan
+                     id="tspan1724"
+                     style="font-weight:bold">G</tspan></text>
+              </g>
+              <g
+                 id="g1734"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1732"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="27.34"
+                   x="151.43"><tspan
+                     id="tspan1730"
+                     style="font-weight:bold">H</tspan></text>
+              </g>
+              <g
+                 id="g1740"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1738"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="274.52"
+                   x="352.73"><tspan
+                     id="tspan1736"
+                     style="font-weight:bold">I</tspan></text>
+              </g>
+              <g
+                 id="g1746"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1744"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="16"
+                   x="27.01"><tspan
+                     id="tspan1742"
+                     style="font-weight:bold">J</tspan></text>
+              </g>
+              <g
+                 id="g1752"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1750"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="102.17"
+                   x="67.13"><tspan
+                     id="tspan1748"
+                     style="font-weight:bold">K</tspan></text>
+              </g>
+              <g
+                 id="g1758"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1756"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="208.76"
+                   x="261.62"><tspan
+                     id="tspan1754"
+                     style="font-weight:bold">L</tspan></text>
+              </g>
+              <g
+                 id="g1764"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1762"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="267.72"
+                   x="151.85"><tspan
+                     id="tspan1760"
+                     style="font-weight:bold">M</tspan></text>
+              </g>
+              <g
+                 id="g1770"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1768"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="288.13"
+                   x="313.26"><tspan
+                     id="tspan1766"
+                     style="font-weight:bold">N</tspan></text>
+              </g>
+              <g
+                 id="g1776"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1774"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="288.13"
+                   x="335.82"><tspan
+                     id="tspan1772"
+                     style="font-weight:bold">O</tspan></text>
+              </g>
+              <g
+                 id="g1782"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1780"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="211.02"
+                   x="158.68"><tspan
+                     id="tspan1778"
+                     style="font-weight:bold">P</tspan></text>
+              </g>
+              <g
+                 id="g1788"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1786"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="215.56"
+                   x="27"><tspan
+                     id="tspan1784"
+                     style="font-weight:bold">Q</tspan></text>
+              </g>
+              <g
+                 id="g1794"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1792"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="224.63"
+                   x="354.33"><tspan
+                     id="tspan1790"
+                     style="font-weight:bold">R</tspan></text>
+              </g>
+              <g
+                 id="g1800"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1798"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="263.18"
+                   x="272.51"><tspan
+                     id="tspan1796"
+                     style="font-weight:bold">S</tspan></text>
+              </g>
+              <g
+                 id="g1806"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1804"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="208.76"
+                   x="326.4"><tspan
+                     id="tspan1802"
+                     style="font-weight:bold">T</tspan></text>
+              </g>
+              <g
+                 id="g1812"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1810"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="235.97"
+                   x="179.24"><tspan
+                     id="tspan1808"
+                     style="font-weight:bold">U</tspan></text>
+              </g>
+              <g
+                 id="g1818"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1816"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="242.77"
+                   x="62.96"><tspan
+                     id="tspan1814"
+                     style="font-weight:bold">V</tspan></text>
+              </g>
+              <g
+                 id="g1824"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1822"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="304"
+                   x="75.48"><tspan
+                     id="tspan1820"
+                     style="font-weight:bold">W</tspan></text>
+              </g>
+              <g
+                 id="g1830"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1828"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="288.13"
+                   x="31.17"><tspan
+                     id="tspan1826"
+                     style="font-weight:bold">X</tspan></text>
+              </g>
+              <g
+                 id="g1836"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1834"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="204.22"
+                   x="97.11"><tspan
+                     id="tspan1832"
+                     style="font-weight:bold">Y</tspan></text>
+              </g>
+              <g
+                 id="g1842"
+                 transform="translate(0,6.25)"
+                 class="textpoint">
+                <text
+                   id="text1840"
+                   style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 25px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+                   text-anchor="middle"
+                   y="136.19"
+                   x="30.37"><tspan
+                     id="tspan1838"
+                     style="font-weight:bold">Z</tspan></text>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g1860"
+             style="stroke-miterlimit: 2; opacity: 1;"
+             class="trace scatter trace28c6b9">
+            <g
+               id="g1848"
+               class="fills" />
+            <g
+               id="g1850"
+               class="errorbars" />
+            <g
+               id="g1854"
+               class="lines">
+              <path
+                 id="path1852"
+                 style="vector-effect: non-scaling-stroke; fill: none; stroke: rgb(239, 85, 59); stroke-opacity: 1; stroke-width: 2px; opacity: 1;"
+                 d="M27,170.35L31.17,169.16L62.96,163.36L75.48,162.56L97.11,162.92L110.14,164.12L127.81,166.8L158.68,173.98L168.32,176.76L179.24,180.19L219.49,194.72L313.26,232.07L326.4,236.79L354.33,245.71L394.91,255.02L513,241.97"
+                 class="js-line" />
+            </g>
+            <g
+               id="g1856"
+               class="points" />
+            <g
+               id="g1858"
+               class="text" />
+          </g>
+        </g>
+      </g>
+      <g
+         id="g1866"
+         class="overplot" />
+      <path
+         id="path1868"
+         style="fill: none; stroke-width: 1px; stroke: rgb(235, 240, 248); stroke-opacity: 1;"
+         d="M79,420.5H620"
+         class="xlines-above crisp" />
+      <path
+         id="path1870"
+         style="fill: none; stroke-width: 1px; stroke: rgb(235, 240, 248); stroke-opacity: 1;"
+         d="M79.5,100V420"
+         class="ylines-above crisp" />
+      <g
+         id="g1872"
+         class="overlines-above" />
+      <g
+         id="g1898"
+         class="xaxislayer-above">
+        <g
+           id="g1876"
+           class="xtick">
+          <text
+             id="text1874"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(98.3,0)"
+             y="435.4"
+             x="0"
+             text-anchor="middle">0%</text>
+        </g>
+        <g
+           id="g1880"
+           class="xtick">
+          <text
+             id="text1878"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(186.95,0)"
+             y="435.4"
+             x="0"
+             text-anchor="middle">2%</text>
+        </g>
+        <g
+           id="g1884"
+           class="xtick">
+          <text
+             id="text1882"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(275.6,0)"
+             y="435.4"
+             x="0"
+             text-anchor="middle">4%</text>
+        </g>
+        <g
+           id="g1888"
+           class="xtick">
+          <text
+             id="text1886"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(364.25,0)"
+             y="435.4"
+             x="0"
+             text-anchor="middle">6%</text>
+        </g>
+        <g
+           id="g1892"
+           class="xtick">
+          <text
+             id="text1890"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(452.9,0)"
+             y="435.4"
+             x="0"
+             text-anchor="middle">8%</text>
+        </g>
+        <g
+           id="g1896"
+           class="xtick">
+          <text
+             id="text1894"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(541.55,0)"
+             y="435.4"
+             x="0"
+             text-anchor="middle">10%</text>
+        </g>
+      </g>
+      <g
+         id="g1928"
+         class="yaxislayer-above">
+        <g
+           id="g1902"
+           class="ytick">
+          <text
+             id="text1900"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(0,390.39)"
+             y="4.199999999999999"
+             x="76.6"
+             text-anchor="end">40</text>
+        </g>
+        <g
+           id="g1906"
+           class="ytick">
+          <text
+             id="text1904"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(0,345.03999999999996)"
+             y="4.199999999999999"
+             x="76.6"
+             text-anchor="end">60</text>
+        </g>
+        <g
+           id="g1910"
+           class="ytick">
+          <text
+             id="text1908"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(0,299.69)"
+             y="4.199999999999999"
+             x="76.6"
+             text-anchor="end">80</text>
+        </g>
+        <g
+           id="g1914"
+           class="ytick">
+          <text
+             id="text1912"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(0,254.33)"
+             y="4.199999999999999"
+             x="76.6"
+             text-anchor="end">100</text>
+        </g>
+        <g
+           id="g1918"
+           class="ytick">
+          <text
+             id="text1916"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(0,208.98000000000002)"
+             y="4.199999999999999"
+             x="76.6"
+             text-anchor="end">120</text>
+        </g>
+        <g
+           id="g1922"
+           class="ytick">
+          <text
+             id="text1920"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(0,163.62)"
+             y="4.199999999999999"
+             x="76.6"
+             text-anchor="end">140</text>
+        </g>
+        <g
+           id="g1926"
+           class="ytick">
+          <text
+             id="text1924"
+             style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 12px; fill: rgb(42, 63, 95); fill-opacity: 1; white-space: pre;"
+             transform="translate(0,118.27)"
+             y="4.199999999999999"
+             x="76.6"
+             text-anchor="end">160</text>
+        </g>
+      </g>
+      <g
+         id="g1930"
+         class="overaxes-above" />
+    </g>
+  </g>
+  <g
+     id="g1936"
+     class="polarlayer" />
+  <g
+     id="g1938"
+     class="ternarylayer" />
+  <g
+     id="g1940"
+     class="geolayer" />
+  <g
+     id="g1942"
+     class="funnelarealayer" />
+  <g
+     id="g1944"
+     class="pielayer" />
+  <g
+     id="g1946"
+     class="treemaplayer" />
+  <g
+     id="g1948"
+     class="sunburstlayer" />
+  <g
+     id="g1950"
+     class="glimages" />
+  <defs
+     id="topdefs-b7d03b">
+    <g
+       id="g1952"
+       class="clips" />
+  </defs>
+  <g
+     id="g1959"
+     class="layer-above">
+    <g
+       id="g1955"
+       class="imagelayer" />
+    <g
+       id="g1957"
+       class="shapelayer" />
+  </g>
+  <g
+     id="g1971"
+     class="infolayer">
+    <g
+       id="g1961"
+       class="g-gtitle" />
+    <g
+       id="g1965"
+       class="g-xtitle">
+      <text
+         id="text1963"
+         style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 14px; fill: rgb(42, 63, 95); opacity: 1; font-weight: normal; white-space: pre;"
+         text-anchor="middle"
+         y="464.20625"
+         x="350"
+         class="xtitle">English Language Percentage</text>
+    </g>
+    <g
+       id="g1969"
+       class="g-ytitle">
+      <text
+         id="text1967"
+         style="font-family: 'Open Sans', verdana, arial, sans-serif; font-size: 14px; fill: rgb(42, 63, 95); opacity: 1; font-weight: normal; white-space: pre;"
+         text-anchor="middle"
+         y="260"
+         x="31.215625000000003"
+         transform="rotate(-90,31.215625000000003,260)"
+         class="ytitle">Survey Frequency</text>
+    </g>
+  </g>
+</svg>

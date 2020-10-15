@@ -16,11 +16,13 @@ import visualise_funs as vis
 import analysis_funs as an
 
 survey = dat.read_data()
-# vis.histograms_1to10(survey)
-#vis.barcharts_1to10(survey)
+#vis.barcharts(survey)
 
-# vis.test_heatmap()
-# vis.keyboard_heatmap(survey)
+#an.deviation_from_expected(survey)
 
-#an.freq_regression(survey, True)
-an.same_number(survey)
+#vis.keyboard_heatmap(survey, fname = "keyboard_heatmap")
+#
+an.freq_regression(survey, True, "freq_regression")
+#an.same_number(survey)
+#an.deviation_from_expected(survey)
+#an.chi_square(survey)

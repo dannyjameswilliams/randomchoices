@@ -10,106 +10,155 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 from PIL import Image
-
-def histograms_1to10(survey):
-
-
-    x0 = survey.iloc[:, 1].to_numpy()
-    x1 = survey.iloc[:, 4].astype("int").to_numpy()
     
-    fig = go.Figure()
-    fig.add_trace(go.Histogram(x=x0))
-    fig.add_trace(go.Histogram(x=x1))
+def plotly_bar(x, sums, select = "Scale", col = "red", 
+               fname=None, ymax = None):
     
-    # Overlay both histograms
-    fig.update_layout(
-        barmode='overlay',
-        xaxis_title = "Frequency",
-        yaxis_title = "Selected Number",
-        template = "plotly_white"    
+    # Initialise some variables
+    n = sum(sums)
+    expected_val = sum(sums)/x[len(x)-1]
+    
+    # hover labels
+    labels = sums - expected_val
+    labels = np.round(labels, 3)
+    labels = list(map(str, labels))
+    
+    # Set up figure
+    fig = go.Figure(data = [go.Bar(
+                              x = x, y = sums,
+                              hovertext  = labels,
+                              hoverlabel = dict(namelength=0),
+                              hovertemplate = 'Number chosen: %{x}<br><b>Count: %{y}</b><br>Difference from uniformity: %{hovertext}')
+          ])
+    
+    # Customize design
+    fig.update_traces(marker_color=col)
+    
+    # Y-axis maximum
+    if ymax is None:
+        ymax = max(sums)
+    fig.update_layout(yaxis = dict(range=[0, ymax]))
+    
+    # Add line of expected value
+    fig.add_shape(
+            type = "line",
+            x0   = 0.5,
+            y0   = expected_val,
+            x1   = x[len(x)-1] + 0.5,
+            y1   = expected_val,
+            line = dict(
+                color = "grey",
+                width = 3.5,
+                dash  = "dash"
+            ),
     )
     
-    # Reduce opacity to see both histograms
-    fig.update_traces(opacity=0.5)
-    fig.show()
-    
-def barcharts_1to10(survey):
-    
-    # Get data and labels
-    x = list(range(1, 11))
-    y0 = survey.iloc[:, 1].to_numpy()
-    y1 = survey.iloc[:, 4].astype("int").to_numpy()
-    y0_sums = [(y0 == i).sum() for i in range(1,11)]
-    y1_sums = [(y1 == i).sum() for i in range(1,11)]
-    
-    def plotly_bar(x, sums, select = "Scale", col = "red"):
-        # hover labels
-        labels = sums/sum(sums) - (1/10)
-        labels = np.round(labels, 3)
-        labels = list(map(str, labels))
+    # If we are saving the image, then it has different properties
+    if fname is not None: 
         
-        # Set up figure
-        fig = go.Figure(data=[go.Bar(x=x, y=sums,
-                    hovertext=labels,
-                    hoverlabel=dict(namelength=0),
-                    hovertemplate='Number chosen: %{x}<br><b>Count: %{y}</b><br>Difference from uniformity: %{hovertext}')
-              ])
+        fig.update_layout(
+                xaxis=dict(zeroline=False, showgrid=False), 
+                yaxis=dict(zeroline=False, showgrid=False)
+                )
+
+        fig.update_layout(
+          title_text  = '',
+          yaxis_title = "Frequency",
+          xaxis_title = "Number",
+          template    = "plotly_white" ,
+          font=dict(
+                family = "Open Sans",
+                size   = 18,
+                color  = "#34343D"
+            )
+        )
+            
+        fig.update_yaxes(
+                showticklabels=False,
+                tickfont = dict(size = 13)
+        )
+        fig.update_xaxes(
+                ticktext = x,
+                tickvals = x,
+                tickfont = dict(size = 13)
+        )
+    
+        fig.write_image("plots/" + fname + ".png")
+        fig.write_image("plots/svgs/" + fname + ".svg")
+        print("Saved plots/{}.png".format(fname))
         
-        # Customize design
-        fig.update_traces(marker_color=col, marker_line_color='rgb(8,48,107)',
-                          marker_line_width=1.5, opacity=0.6)
+    else:
+        
+        # Add binomial variance 
+        var = n*(1/x[len(x)-1])*(1-(1/x[len(x)-1]))
+        fig.add_shape(
+                type = "line",
+                x0   = 0.5,
+                y0   = expected_val + 1.96*var**0.5,
+                x1   = x[len(x)-1] + 0.5,
+                y1   = expected_val + 1.96*var**0.5,
+                line = dict(
+                    color = "grey",
+                    width = 2,
+                    dash  = "dashdot"
+                ),
+        )
+        fig.add_shape(
+                type = "line",
+                x0   = 0.5,
+                y0   = expected_val - 1.96*var**0.5,
+                x1   = x[len(x)-1] + 0.5,
+                y1   = expected_val - 1.96*var**0.5,
+                line = dict(
+                    color = "grey",
+                    width = 2,
+                    dash  = "dashdot"
+                ),
+        )
         
         # Add x labels and templates
         fig.update_layout(
-              title_text='Select a random number between 1 and 10 [' + select + ' selection]',
-              xaxis_title = "Frequency",
-              yaxis_title = "Selected Number",
-              template = "plotly_white"    
+              title_text  = 'Select a random number between 1 and 10 [' + select + ' selection]',
+              yaxis_title = "Frequency",
+              xaxis_title = "Selected Number",
+              template    = "plotly_white"    
         )
-        
-        # Add line of uniformity
-        fig.update_layout(shapes = [
-                dict(
-                    type = "line",
-                    xref = 'paper', x0 = 0, x1 = 1,
-                    yref = 'y', y0 = sum(sums)/10, y1 = sum(sums)/10
-                )
-                ])
-        fig.show()
-    
-    plotly_bar(x, y0_sums, "Scale", "red")
-    plotly_bar(x, y1_sums, "Input", "blue")
-    
-    
-    
-def test_heatmap():
-    # Build the rectangles as a heatmap
-    # specify the edges of the heatmap squares
-    phi = (1 + np.sqrt(5) )/2. # golden ratio
-    xe = [0, 1, 1+(1/(phi**4)), 1+(1/(phi**3)), phi]
-    ye = [0, 1/(phi**3), 1/phi**3+1/phi**4, 1/(phi**2), 1]
-    
-    z = [ [13,3,3,5],
-          [13,2,1,5],
-          [13,10,11,12],
-          [13,8,8,8]
-        ]
-    
-    fig = go.Figure(data=go.Heatmap(
-              x = np.sort(xe),
-              y = np.sort(ye),
-              z = z,
-              type = 'heatmap',
-              colorscale = 'Viridis'))
+
     fig.show()
     
     
+        
+
     
     
-def keyboard_heatmap(survey):
+def barcharts(survey):
     
+    # Get data from survey dataframe
+    x_1to10 = list(range(1, 11))
+    x_1to50 = list(range(1, 51))
+    y0  = survey.iloc[:, 1].to_numpy()
+    y1  = survey.iloc[:, 4].astype("int").to_numpy()
+    y50 = survey.iloc[:, 2].astype("int").to_numpy()
+    
+    # Sum for each integer (1 to 10 or 1 to 50)
+    y0_sums  = [(y0 == i).sum() for i in x_1to10]
+    y1_sums  = [(y1 == i).sum() for i in x_1to10]
+    y50_sums = [(y50 == i).sum() for i in x_1to50]
+    
+    ymax = np.max(np.hstack((y0_sums, y1_sums)))
+    
+    plotly_bar(x_1to10, y0_sums, "Scale", "#D0021B", "hist_1to10_1", ymax)
+    plotly_bar(x_1to10, y1_sums, "Input", "#8AE8FF", "hist_1to10_2", ymax)
+    plotly_bar(x_1to50, y50_sums, "", "#8AE8FF", "hist_1to50", None)   
+    
+    
+def keyboard_heatmap(survey, fname = None):
+    
+    # Get the third question and total it
     abc = survey.columns[3]
     qwert_totals = survey.groupby(abc).count()
+    
+    # Create 'Letter' column and order it by keyboard ordering
     qwert_totals["Letter"] = list(qwert_totals.index)
     qwert_totals = qwert_totals.iloc[:,[0, 4]]
     qwert_totals["Letter"] = pd.Categorical(qwert_totals["Letter"],
@@ -117,16 +166,20 @@ def keyboard_heatmap(survey):
                                     "A", "S", "D", "F", "G", "H", "J", "K", "L",
                                      "Z", "X", "C", "V", "B", "N", "M"]
                                   )
+    
+    # Sort and convert the array to separate vectors
     qwert_totals = qwert_totals.sort_values("Letter")
     letters = qwert_totals.iloc[:, 1].to_numpy()
     counts = qwert_totals.iloc[:, 0].to_numpy()
     
+    # Create matrix for heatmap plot
     qwert_mat = np.vstack((
             np.repeat(counts[0:10], 3),
             np.hstack((0, np.repeat(counts[10:19], 3), 0, 0)),
             np.hstack((np.repeat(0, 2), np.repeat(counts[19:26], 3), np.repeat(0, 7)))
             ))
     
+    # Create matrix of labels for hover info
     none_message = "Not a letter!"
     label_mat = np.vstack((
             np.repeat(letters[0:10], 3),
@@ -134,32 +187,31 @@ def keyboard_heatmap(survey):
             np.hstack((np.repeat(none_message, 2), np.repeat(letters[19:26], 3), np.repeat(none_message, 7)))
             ))
     
-    
+    # Set up irregular grid in the shape of a keyboard
     biggest_diff = 1
     big_diff = 0.75
     min_diff = 0.25
-    # key_diff = 0.1
-    
     x_seq = [min_diff, big_diff, biggest_diff]
     x_along = np.array([0])
     for i in range(10):
         x_along = np.hstack((x_along, np.add(x_seq, i)))
     y_along = [2, 1, 0]
-    
+
+    # Create the heatmap figure, plotting the frequencies on the keyboard grid
     fig = go.Figure(data=go.Heatmap(
               x = x_along,
               y = y_along,
               z = qwert_mat,
               zsmooth = "best",
               type = 'heatmap',
-              colorscale = 'Viridis',
+              colorscale = [[0.0, 'rgba(255,255,255,0)'], [1.0, 'blue']],
               hoverongaps = False,
               hovertext = label_mat,
               hoverlabel = dict(namelength=0),
               hovertemplate ='<b>%{hovertext}</b> <br>Times chosen: %{z}'))
     
-    image1 = Image.open("images/keyboard22.jpg")
-    
+    # Add the image of the keyboard to the background
+    image1 = Image.open("images/keyboard.jpg")
     fig.add_layout_image(
         dict(
             source=image1,
@@ -174,75 +226,26 @@ def keyboard_heatmap(survey):
             layer="below")
         )
     
+    # Add some figure properties
     fig.update_traces(opacity=0.7)
-
     fig.update_layout(
             template="plotly_white",
             xaxis=dict(zeroline=False, showgrid=False), 
             yaxis=dict(zeroline=False, showgrid=False)
             )
-
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
     
+    # Save the figure if filename is present
+    if fname is not None: 
+        fig.write_image("plots/" + fname + ".png")
+        fig.write_image("plots/svgs/" + fname + ".svg", width = 741, height = 360)
+        print("Saved plots/{}.png".format(fname))
+    
     fig.show()  
     
     
     
-    
-def test_keyboard():
-    
-    test_z_mat = np.vstack((
-             [-1, 0, 1]*10,
-             [-1, 0, 1]*10,
-             [-1, 0, 1]*10
-             ))
-    
-    biggest_diff = 1
-    big_diff = 0.75
-    min_diff = 0.25
-    # key_diff = 0.1
-    
-    x_seq = [min_diff, big_diff, biggest_diff]
-    x_along = np.array([0])
-    for i in range(10):
-        x_along = np.hstack((x_along, np.add(x_seq, i)))
-    y_along = [2, 1, 0]
-    
-    fig = go.Figure(data=go.Heatmap(
-              x = x_along,
-              y = y_along,
-              z = test_z_mat,
-              zsmooth = "best",
-              type = 'heatmap',
-              colorscale = 'Viridis'))
-    
-    image1 = Image.open("images/keyboard22.jpg")
-    
-    fig.add_layout_image(
-        dict(
-            source=image1,
-            xref="x",
-            yref="y",
-            x=0,
-            y=2.5,
-            sizex=10,
-            sizey=3,
-            sizing="stretch",
-            opacity=1,
-            layer="below")
-        )
-    
-    fig.update_traces(opacity=0.7)
-
-    fig.update_layout(
-            title_text = str(x_seq),
-            template="plotly_white",
-            xaxis=dict(zeroline=False, showgrid=False), 
-            yaxis=dict(zeroline=False, showgrid=False)
-            )
-
-    fig.show()  
     
     
     

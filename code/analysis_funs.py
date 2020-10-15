@@ -9,8 +9,9 @@ import pandas as pd
 import sklearn.linear_model as lm
 import plotly.graph_objects as go
 import numpy as np
+from scipy.stats import chisquare
 
-def freq_regression(survey, plot = True):
+def freq_regression(survey, plot = True, fname = None):
 
     # Letter frequencies in English language (obtained from https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html)
     letter_freq = pd.DataFrame(
@@ -69,37 +70,63 @@ def freq_regression(survey, plot = True):
         fig.update_traces(texttemplate='<b>%{text}</b>',
                           textfont_size=25)
     
-        # Plot properties
-        fig.update_layout(
-            xaxis_title = "Letter Percentage in English Words",
-            yaxis_title = "Number of Times Picked in Survey",
-            template = "plotly_white",
-            xaxis_tickformat = '%',
-            showlegend=False
-        )
-        
+
+        # If saving image as svg/png then axes are differently labelled
+        if fname is not None: 
+            fig.update_layout(
+                xaxis_title = "English Language Percentage",
+                yaxis_title = "Survey Frequency",
+                template    = "plotly_white",
+                xaxis_tickformat = '%',
+                showlegend  = False,
+                xaxis       = dict(zeroline=False, showgrid=False), 
+                yaxis       = dict(zeroline=False, showgrid=False),
+                font = dict(
+                    family = "Open Sans",
+                    size   = 18,
+                    color  = "#34343D"
+                )
+            )
+             
+            fig.write_image("plots/" + fname + ".png")
+            fig.write_image("plots/svgs/" + fname + ".svg")
+            print("Saved plots/{}.png".format(fname))
+        else:
+            fig.update_layout(
+                xaxis_title = "Letter Percentage in English Words",
+                yaxis_title = "Number of Times Picked in Survey",
+                template    = "plotly_white",
+                xaxis_tickformat = '%',
+                showlegend  = False
+            ) 
+    
         fig.show()
     
 
 
 
-def same_number(survey):
+def same_number(survey, fname = None):
     
-    # Extract 
+    # Extract choices for pick a number between 1 and 10 questions
     number1    = survey.iloc[:,1]
     number2    = survey.iloc[:,4].astype("int")
     difference = number1 - number2
             
-    
-    mean = np.round(np.mean(np.abs(difference)), 2)
-    sd   = np.round(np.std(np.abs(difference)), 2)
+    # Get summary statistics: mean, sd and proportion the same number has been picked
+    mean = np.round(np.mean((difference)), 2)
+    sd   = np.round(np.std((difference)), 2)
     prop_same = np.round(np.sum(difference == 0)/len(difference), 4)*100
 
     print("{}% picked the same number.".format(prop_same))
     print("The mean difference between first and second pick is {}, with a SD of {}.".format(mean, sd))
     
-
-    x = np.sort(np.unique(difference))
+    # true uniform
+    unif = np.vstack((np.random.randint(1, 11, 10000000), np.random.randint(1, 11, 10000000)))
+    unif_diff = (unif[0, :] - unif[1, :])
+    print("Truth: Mean {} and SD {}.".format(np.mean(unif_diff), np.std(unif_diff)))
+    
+    # Get totals of differences
+    x    = np.sort(np.unique(difference))
     sums = [(difference == i).sum() for i in x]
         
     # Set up figure
@@ -108,19 +135,19 @@ def same_number(survey):
           ])
     
     # Customize design
-    fig.update_traces(marker_color="purple", marker_line_color='rgb(8,48,107)',
+    fig.update_traces(marker_color="purple", 
+                      marker_line_color='rgb(8,48,107)',
                       marker_line_width=1.5, opacity=0.6)
     
     # Add x labels and templates
     fig.update_layout(
-          title_text  ='Distribution of (Choice #1 - Choice #2)',
+          title_text  = 'Distribution of (Choice #1 - Choice #2)',
           xaxis_title = "Frequency",
           yaxis_title = "Selected Number",
           template    = "plotly_white",
           showlegend  = False
     )
 
-    
     # Add line of uniformity Irwin-Hall distribution (discrete, n=2, triangle distribution)
     fig.add_trace(go.Scatter(x=list(range(-9, 10)), 
                              y=np.hstack((np.linspace(0, 0.1*len(survey), 10), 
@@ -131,9 +158,123 @@ def same_number(survey):
                              hovertemplate='Irwin-Hall PDF (n=2)'
     ))
     
+    if fname is not None: 
+            fig.write_image("plots/" + fname + ".png")
+            fig.write_image("plots/svgs/" + fname + ".svg")
+            print("Saved plots/{}.png".format(fname))
+            
     fig.show()
-         
-    return prop_same - mean - sd
+
+
+
+def deviation_from_expected(survey):
+    
+    # Get data from survey dataframe
+    x_1to10 = list(range(1, 11))
+    x_1to50 = list(range(1, 51))
+    y0  = survey.iloc[:, 1].to_numpy()
+    y1  = survey.iloc[:, 4].astype("int").to_numpy()
+    y50 = survey.iloc[:, 2].astype("int").to_numpy()
+    
+    # Sum for each integer (1 to 10 or 1 to 50)
+    y0_sums  = [(y0 == i).sum() for i in x_1to10]
+    y1_sums  = [(y1 == i).sum() for i in x_1to10]
+    y50_sums = [(y50 == i).sum() for i in x_1to50]
+    
+    # normalise to percentage
+    n = sum(y0_sums)
+    y0_pers  = y0_sums/n
+    y1_pers  = y1_sums/n
+    y50_pers = y50_sums/n
+    
+    # Expected Values
+    expected_y0  = sum(y0_pers)/x_1to10[len(x_1to10)-1]
+    expected_y1  = sum(y1_pers)/x_1to10[len(x_1to10)-1]
+    expected_y50 = sum(y50_pers)/x_1to50[len(x_1to50)-1]
+    
+    # Differences
+    diff_y0  = np.abs(y0_pers - expected_y0)
+    diff_y1  = np.abs(y1_pers - expected_y1)
+    diff_y50 = np.abs(y50_pers- expected_y50)
+
+    # Proportion difference for 1 and 10
+    edge_y0_1 = sum(y0_sums)/x_1to10[len(x_1to10)-1] - y0_sums[0]
+    edge_y0_2 = sum(y0_sums)/x_1to10[len(x_1to10)-1] - y0_sums[-1]
+    edge_y1_1 = sum(y1_sums)/x_1to10[len(x_1to10)-1] - y1_sums[0]
+    edge_y1_2 = sum(y1_sums)/x_1to10[len(x_1to10)-1] - y1_sums[-1]
+    
+    mean_y0_edge_per = np.mean([edge_y0_1/n*100, edge_y0_2/n*100])
+    mean_y1_edge_per = np.mean([edge_y1_1/n*100, edge_y1_2/n*100])
+
+    # Display output
+    print("Mean deviation for 1 to 10 QA: {}%".format(np.round(np.mean(diff_y0)*100, 3)))
+    print("Mean deviation for 1 to 10 QB: {}%".format(np.round(np.mean(diff_y1)*100, 3)))
+    print("Mean deviation for 1 to 50   : {}%".format(np.round(np.mean(diff_y50)*100, 3)))
+
+    print("Mean difference in edges QA {}%".format(np.round(mean_y0_edge_per, 3)))
+    print("Mean difference in edges QB {}%".format(np.round(mean_y1_edge_per, 3)))
+
+
+
+def chi_square(survey):
+    
+    # Get data from survey dataframe
+    x_1to10 = list(range(1, 11))
+    x_1to50 = list(range(1, 51))
+    y0  = survey.iloc[:, 1].to_numpy()
+    y1  = survey.iloc[:, 4].astype("int").to_numpy()
+    y50 = survey.iloc[:, 2].astype("int").to_numpy()
+
+    # Sum for each integer (1 to 10 or 1 to 50)
+    y0_sums  = [(y0 == i).sum() for i in x_1to10]
+    y1_sums  = [(y1 == i).sum() for i in x_1to10]
+    y50_sums = [(y50 == i).sum() for i in x_1to50]
+    
+    n = sum(y0_sums)
+    expected_y   = n/x_1to10[len(x_1to10)-1]
+    expected_y50 = n/x_1to50[len(x_1to50)-1]
+    
+    y0_chi  = chisquare(y0_sums, np.repeat(expected_y, 10))
+    y1_chi  = chisquare(y1_sums, np.repeat(expected_y, 10))
+    y50_chi = chisquare(y50_sums, np.repeat(expected_y50, 50))
+
+    print("Chi square statitics:")
+    print("QA: Val: {}, p-val: {}".format(np.round(y0_chi[0], 3), np.round(y0_chi[1], 7)))
+    print("QB: Val: {}, p-val: {}".format(np.round(y1_chi[0], 3), np.round(y1_chi[1], 7)))
+    print("1 to 50 Q: Val: {}, p-val: {}".format(np.round(y50_chi[0], 3), np.round(y50_chi[1], 7)))
+
+
+def analyse_1to50(survey):
+
+    # Extract data    
+    x = list(range(1, 51))
+    y = survey.iloc[:, 2].astype("int").to_numpy()
+    n = len(y)
+    sums = [(y == i).sum() for i in x]
+    
+    # Proportion of people who picked a multiple of 10
+    sums10 = np.array(sums)[[i-1 for i in range(10, 60, 10)]]
+    print("{}% of people picked a multiple of 10".format(np.round(sum(sums10)/n*100, 2)))
+
+    # Proportion of people who picked a 7 number
+    sums7  = np.array(sums)[[i-1 for i in range(7, 57, 10)]]
+    print("{}% of people picked a 7 number".format(np.round(sum(sums7)/n*100, 2)))
+    
+    # Proportion of people who picked the min and max
+    min_ind = np.argmin(sums)
+    max_ind = np.argmax(sums)
+    per_min = np.round(sums[min_ind]/n*100, 2)
+    per_max = np.round(sums[max_ind]/n*100, 2)
+    print("{}% of people picked {}".format(per_min, x[min_ind]))
+    print("{}% of people picked {}".format(per_max, x[max_ind]))
+    
+
+
+
+
+
+
+
 
 
 
