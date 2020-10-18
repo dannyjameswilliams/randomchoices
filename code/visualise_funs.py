@@ -150,9 +150,9 @@ def barcharts(survey):
     
     ymax = np.max(np.hstack((y0_sums, y1_sums)))
     
-#    plotly_bar(x_1to10, y0_sums, "#D0021B", ymax, ylab = "Frequency", htmlname = "hist_1to10_1")
-#    plotly_bar(x_1to10, y1_sums, "#8AE8FF", ymax, ylab = "", htmlname = "hist_1to10_2")
-#    plotly_bar(x_1to50, y50_sums, "#8AE8FF", htmlname = "hist_1to50")   
+    plotly_bar(x_1to10, y0_sums, "#D0021B", ymax, ylab = "Frequency", htmlname = "hist_1to10_1")
+    plotly_bar(x_1to10, y1_sums, "#8AE8FF", ymax, ylab = "", htmlname = "hist_1to10_2")
+    plotly_bar(x_1to50, y50_sums, "#8AE8FF", htmlname = "hist_1to50")   
                
     # For letters
     upper_letters = [chr(x) for x in range(65, 91)]
