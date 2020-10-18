@@ -18,6 +18,6 @@ an.deviation_from_expected(survey)
 
 # Visualisations: barcharts, keyboard heatmap, regression and distribution of differences
 vis.barcharts(survey)
-vis.keyboard_heatmap(survey, htmlname = "keyboard_heatmap")
-an.freq_regression(survey, True, htmlname = "freq_regression")
-an.same_number(survey, htmlname = "deviation")
+vis.keyboard_heatmap(survey)
+an.freq_regression(survey, True)
+an.same_number(survey)
