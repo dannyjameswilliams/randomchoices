@@ -11,7 +11,13 @@ import plotly.graph_objects as go
 import numpy as np
 from scipy.stats import chisquare
 
-def freq_regression(survey, plot = True, fname = None):
+import plotly_keys as mykeys
+import chart_studio
+chart_studio.tools.set_credentials_file(username=mykeys.username,
+                                        api_key=mykeys.api)
+import chart_studio.plotly as py
+
+def freq_regression(survey, plot = True, fname = None, htmlname = None):
 
     # Letter frequencies in English language (obtained from https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html)
     letter_freq = pd.DataFrame(
@@ -40,7 +46,7 @@ def freq_regression(survey, plot = True, fname = None):
     # Fit a linear model 
     fit =  lm.LinearRegression(fit_intercept=True).fit(letter_freq[["Percentage", "Percentage_2", "Percentage_3"]], letter_freq.choices)
     print("Intercept: {}, Gradient: {}, R^2:  {}".format(fit.intercept_, fit.coef_, fit.score(letter_freq[["Percentage", "Percentage_2", "Percentage_3"]], letter_freq["choices"])))
-    
+    print(" ")
     if plot:
         
         # Plotly figure
@@ -97,15 +103,18 @@ def freq_regression(survey, plot = True, fname = None):
                 yaxis_title = "Number of Times Picked in Survey",
                 template    = "plotly_white",
                 xaxis_tickformat = '%',
-                showlegend  = False
+                showlegend  = False,
+                margin=go.layout.Margin(l=1, r=1, b=1, t=1)
             ) 
+            if htmlname is not None:
+                py.plot(fig, filename = htmlname, auto_open=True)
     
         fig.show()
     
 
 
 
-def same_number(survey, fname = None):
+def same_number(survey, fname = None, htmlname = None):
     
     # Extract choices for pick a number between 1 and 10 questions
     number1    = survey.iloc[:,1]
@@ -128,36 +137,45 @@ def same_number(survey, fname = None):
     # Get totals of differences
     x    = np.sort(np.unique(difference))
     sums = [(difference == i).sum() for i in x]
-        
+    expected = np.hstack((np.linspace(0, 0.1*len(survey), 11), np.linspace(0.1*len(survey), 0, 11)[1:11]))
+    
+    # Get chisquare statistic
+    chi = chisquare(sums, expected[1:(len(expected)-1)])
+    print("Differences (chi): Val: {}, p-val: {}".format(np.round(chi[0], 3), np.round(chi[1], 7)))
+    print(" ")
+    
     # Set up figure
     fig = go.Figure(data=[go.Bar(x=x, y=sums,
                 hovertemplate="<b>Choice #1 - Choice #2 = %{x}</b><br>%{y} people's choices gave this")
           ])
     
     # Customize design
-    fig.update_traces(marker_color="purple", 
-                      marker_line_color='rgb(8,48,107)',
-                      marker_line_width=1.5, opacity=0.6)
+    fig.update_traces(
+            marker_color="purple", 
+            opacity=0.6
+        )
     
     # Add x labels and templates
     fig.update_layout(
-          title_text  = 'Distribution of (Choice #1 - Choice #2)',
           xaxis_title = "Frequency",
           yaxis_title = "Selected Number",
           template    = "plotly_white",
-          showlegend  = False
+          showlegend  = False,
+          margin=go.layout.Margin(l=1, r=1, b=1, t=1)
     )
 
     # Add line of uniformity Irwin-Hall distribution (discrete, n=2, triangle distribution)
-    fig.add_trace(go.Scatter(x=list(range(-9, 10)), 
-                             y=np.hstack((np.linspace(0, 0.1*len(survey), 10), 
-                                          np.linspace(0.1*len(survey), 0, 10)[1:10])),
+    fig.add_trace(go.Scatter(x=list(range(-10, 11)), 
+                             y=expected,
                              mode='lines',
                              line = dict(color = "black", width = 4),
                              name="",
                              hovertemplate='Irwin-Hall PDF (n=2)'
     ))
     
+    if htmlname is not None:
+        py.plot(fig, filename = htmlname, auto_open=True)
+                
     if fname is not None: 
             fig.write_image("plots/" + fname + ".png")
             fig.write_image("plots/svgs/" + fname + ".svg")
@@ -210,10 +228,10 @@ def deviation_from_expected(survey):
     print("Mean deviation for 1 to 10 QA: {}%".format(np.round(np.mean(diff_y0)*100, 3)))
     print("Mean deviation for 1 to 10 QB: {}%".format(np.round(np.mean(diff_y1)*100, 3)))
     print("Mean deviation for 1 to 50   : {}%".format(np.round(np.mean(diff_y50)*100, 3)))
-
+    
     print("Mean difference in edges QA {}%".format(np.round(mean_y0_edge_per, 3)))
     print("Mean difference in edges QB {}%".format(np.round(mean_y1_edge_per, 3)))
-
+    print(" ")
 
 
 def chi_square(survey):
@@ -238,11 +256,10 @@ def chi_square(survey):
     y1_chi  = chisquare(y1_sums, np.repeat(expected_y, 10))
     y50_chi = chisquare(y50_sums, np.repeat(expected_y50, 50))
 
-    print("Chi square statitics:")
-    print("QA: Val: {}, p-val: {}".format(np.round(y0_chi[0], 3), np.round(y0_chi[1], 7)))
-    print("QB: Val: {}, p-val: {}".format(np.round(y1_chi[0], 3), np.round(y1_chi[1], 7)))
-    print("1 to 50 Q: Val: {}, p-val: {}".format(np.round(y50_chi[0], 3), np.round(y50_chi[1], 7)))
-
+    print("QA (chi): Val: {}, p-val: {}".format(np.round(y0_chi[0], 3), np.round(y0_chi[1], 7)))
+    print("QB (chi): Val: {}, p-val: {}".format(np.round(y1_chi[0], 3), np.round(y1_chi[1], 7)))
+    print("1 to 50 Q (chi): Val: {}, p-val: {}".format(np.round(y50_chi[0], 3), np.round(y50_chi[1], 7)))
+    print(" ")
 
 def analyse_1to50(survey):
 
@@ -267,7 +284,7 @@ def analyse_1to50(survey):
     per_max = np.round(sums[max_ind]/n*100, 2)
     print("{}% of people picked {}".format(per_min, x[min_ind]))
     print("{}% of people picked {}".format(per_max, x[max_ind]))
-    
+    print(" ")
 
 
 

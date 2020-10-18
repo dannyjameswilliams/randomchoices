@@ -9,14 +9,19 @@ Created on Fri Oct  9 15:08:24 2020
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
+import plotly_keys as mykeys
+import chart_studio
+chart_studio.tools.set_credentials_file(username=mykeys.username,
+                                        api_key=mykeys.api)
+import chart_studio.plotly as py
 from PIL import Image
     
-def plotly_bar(x, sums, select = "Scale", col = "red", 
-               fname=None, ymax = None):
+def plotly_bar(x, sums, col = "red", ymax = None, ylab = "",
+               fname=None, htmlname = None):
     
     # Initialise some variables
     n = sum(sums)
-    expected_val = sum(sums)/x[len(x)-1]
+    expected_val = sum(sums)/len(x)
     
     # hover labels
     labels = sums - expected_val
@@ -42,13 +47,13 @@ def plotly_bar(x, sums, select = "Scale", col = "red",
     # Add line of expected value
     fig.add_shape(
             type = "line",
-            x0   = 0.5,
+            x0   = -0.5,
             y0   = expected_val,
-            x1   = x[len(x)-1] + 0.5,
+            x1   = len(x)-0.5,
             y1   = expected_val,
             line = dict(
                 color = "grey",
-                width = 3.5,
+                width = 1.75,
                 dash  = "dash"
             ),
     )
@@ -62,7 +67,6 @@ def plotly_bar(x, sums, select = "Scale", col = "red",
                 )
 
         fig.update_layout(
-          title_text  = '',
           yaxis_title = "Frequency",
           xaxis_title = "Number",
           template    = "plotly_white" ,
@@ -90,45 +94,44 @@ def plotly_bar(x, sums, select = "Scale", col = "red",
     else:
         
         # Add binomial variance 
-        var = n*(1/x[len(x)-1])*(1-(1/x[len(x)-1]))
+        var = n*(1/len(x))*(1-(1/len(x)))
         fig.add_shape(
                 type = "line",
-                x0   = 0.5,
+                x0   = -0.5,
                 y0   = expected_val + 1.96*var**0.5,
-                x1   = x[len(x)-1] + 0.5,
+                x1   = len(x)-0.5,
                 y1   = expected_val + 1.96*var**0.5,
                 line = dict(
                     color = "grey",
-                    width = 2,
-                    dash  = "dashdot"
+                    width = 1.25,
+                    dash  = "dot"
                 ),
         )
         fig.add_shape(
                 type = "line",
-                x0   = 0.5,
+                x0   = -0.5,
                 y0   = expected_val - 1.96*var**0.5,
-                x1   = x[len(x)-1] + 0.5,
+                x1   = len(x)-0.5,
                 y1   = expected_val - 1.96*var**0.5,
                 line = dict(
                     color = "grey",
-                    width = 2,
-                    dash  = "dashdot"
+                    width = 1.25,
+                    dash  = "dot"
                 ),
         )
         
         # Add x labels and templates
         fig.update_layout(
-              title_text  = 'Select a random number between 1 and 10 [' + select + ' selection]',
-              yaxis_title = "Frequency",
+              yaxis_title = ylab,
               xaxis_title = "Selected Number",
-              template    = "plotly_white"    
+              template    = "plotly_white",
+            margin=go.layout.Margin(l=1, r=1, b=1, t=1)    
         )
+        
+        if htmlname is not None:
+            py.plot(fig, filename = htmlname, auto_open=True)
 
     fig.show()
-    
-    
-        
-
     
     
 def barcharts(survey):
@@ -147,12 +150,17 @@ def barcharts(survey):
     
     ymax = np.max(np.hstack((y0_sums, y1_sums)))
     
-    plotly_bar(x_1to10, y0_sums, "Scale", "#D0021B", "hist_1to10_1", ymax)
-    plotly_bar(x_1to10, y1_sums, "Input", "#8AE8FF", "hist_1to10_2", ymax)
-    plotly_bar(x_1to50, y50_sums, "", "#8AE8FF", "hist_1to50", None)   
+#    plotly_bar(x_1to10, y0_sums, "#D0021B", ymax, ylab = "Frequency", htmlname = "hist_1to10_1")
+#    plotly_bar(x_1to10, y1_sums, "#8AE8FF", ymax, ylab = "", htmlname = "hist_1to10_2")
+#    plotly_bar(x_1to50, y50_sums, "#8AE8FF", htmlname = "hist_1to50")   
+               
+    # For letters
+    upper_letters = [chr(x) for x in range(65, 91)]
+    y_letter      = survey.iloc[:, 3].to_numpy()
+    letter_sums   = [(y_letter == i).sum() for i in upper_letters]
+    plotly_bar(upper_letters, letter_sums, "#8AE8FF", ylab = "Frequency", htmlname = "letter_freq")
     
-    
-def keyboard_heatmap(survey, fname = None):
+def keyboard_heatmap(survey, fname = None, htmlname = None):
     
     # Get the third question and total it
     abc = survey.columns[3]
@@ -204,7 +212,7 @@ def keyboard_heatmap(survey, fname = None):
               z = qwert_mat,
               zsmooth = "best",
               type = 'heatmap',
-              colorscale = [[0.0, 'rgba(255,255,255,0)'], [1.0, 'blue']],
+              colorscale = [[0.0, 'rgba(255,255,255,0)'], [1.0, 'red']],
               hoverongaps = False,
               hovertext = label_mat,
               hoverlabel = dict(namelength=0),
@@ -231,11 +239,16 @@ def keyboard_heatmap(survey, fname = None):
     fig.update_layout(
             template="plotly_white",
             xaxis=dict(zeroline=False, showgrid=False), 
-            yaxis=dict(zeroline=False, showgrid=False)
-            )
+            yaxis=dict(zeroline=False, showgrid=False),
+            margin=go.layout.Margin(l=1, r=1, b=1, t=1)
+        )
+    
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
     
+    if htmlname is not None:
+        py.plot(fig, filename = htmlname, auto_open=True)
+            
     # Save the figure if filename is present
     if fname is not None: 
         fig.write_image("plots/" + fname + ".png")
