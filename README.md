@@ -19,4 +19,12 @@ These must change to your own working directory, because as you can probably tel
 ```
 python3 main.py
 ```
-if you are using `bash`. Otherwise if you are on Windows, you will need to run `main.py` through a Python launcher.
+if you are using `bash`. Otherwise if you are on Windows, you will need to run `main.py` through a Python launcher. This should print out diagnostics, information and open interactive HTML plots in your browser.
+
+The directory is organised as follows:
+
+ - The survey data is in `data/survey.csv`.
+ - Plots are saved to `plots/*` and `plots/svgs/*`.
+ - Images, which are edited plots or other images used in the infographic, are saved in `images/*`.
+ - Functions used for analysis and visualisation are labelled as `code/*_funs.py*.
+ - `code/main.py` collects the data, and runs all required functions.
